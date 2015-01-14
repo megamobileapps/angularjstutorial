@@ -1,0 +1,27 @@
+<html data-ng-app="utswApp">
+<head></head>
+<body>
+   <h1> module-controller</h1>
+    <div class="container" data-ng-controller="SimpleController">
+        <input type="text" data-ng-model="customerName"/>
+        <ul>
+            <li data-ng-repeat="cust in customers|filter:customerName|orderBy:'name'">{{ cust.name |uppercase}} - {{cust.city}} </li>
+        </ul>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script>
+        var utswApp = angular.module("utswApp",[]);
+        var controllers = {};
+        controllers.SimpleController=function ($scope) {
+            $scope.customers=[
+                {name:'pankaj goel', city:'bgl'},
+                {name:'shiffauli goel', city:'shbd'}
+            ];
+        };
+        // add multiple controller funcitons in controllers
+        // each one will be added as separate controllers and can be use
+        // in different divs.
+        utswApp.controller(controllers);
+    </script>
+</body>
+</html>

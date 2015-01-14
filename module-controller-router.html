@@ -1,0 +1,56 @@
+<html data-ng-app="utswApp">
+<head></head>
+<body>
+   <h1> module-route-controller</h1>
+   <ul>
+       <li><a href="#add">add new customer</a></li>
+       <li><a href="#/">show all customers</a></li>
+       <li><a href="#help">show help</a></li>
+   </ul>
+    <div data-ng-view="">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js"></script>
+    <script>
+        var utswApp = angular.module("utswApp",['ngRoute']);
+        //add router
+        
+        utswApp.config(function($routeProvider) {
+            $routeProvider
+                .when("/",
+                      {
+                        templateUrl:"views/viewmain.html",
+                        controller:"SimpleController"
+                    })
+                 .when("/add",
+                      {
+                        templateUrl:"views/viewadd.html",
+                        controller:"SimpleController"
+                    })
+                .when("/help", 
+                      {
+                        templateUrl:"views/viewhelp.html",
+                        controller:"SimpleController"
+                       })
+                .otherwise({redirectTo:"/"});
+            });
+        
+        // add controllers
+        var controllers = {};
+        controllers.SimpleController=function ($scope) {
+            $scope.customers=[
+                {name:'pankaj goel', city:'bgl'},
+                {name:'shiffauli goel', city:'shbd'}
+            ];
+            
+            $scope.addCustomer = function() {
+                $scope.customers.push({name:$scope.newCustomer.name, city:$scope.newCustomer.city});
+            };
+        };
+        // add multiple controller funcitons in controllers
+        // each one will be added as separate controllers and can be use
+        // in different divs.
+        utswApp.controller(controllers);
+    </script>
+</body>
+</html>
