@@ -1,0 +1,116 @@
+<div class="container">
+    
+    <script>
+       var sitepath='http://localhost/in/';
+       function g_callback(authResult) {
+          // console.log("authresult is:"+JSON.stringify(authResult));
+	       if (authResult['code']) {
+
+                // Hide the sign-in button now that the user is authorized, for example:
+                $('#signinButton').attr('style', 'display: none');
+
+
+                // Send the code to the server
+                var p = $.post( 
+                    sitepath+'gplus/g_login_processing.php?storeToken=1&localhost=1', 
+                    { 
+                        code:authResult['code'],
+                        gplusid:"-1"
+                    } 
+                );
+                p.done(function(data1){
+                    console.log("data received from server is "+JSON.stringify(data1));
+                    var data = JSON.parse(data1);
+                    if( data && data.result['retstate'] === "success") {
+                        if (data.result['profile'] ){
+                          $('#results').html('Hello ' + data.result['profile']['displayname'] 
+                                             + '. You successfully made a server side call to people.get and people.list');
+                        } else {
+                          $('#results').html('Failed to make a server-side call. Check your configuration and console.');
+                        }
+                    } else {
+                        console.log('There was an error: ' );
+                    }
+                });
+
+                p.fail(function (authResult) {
+                    console.log('There was an error: ' + authResult['error']);
+                });
+
+            }
+       }
+    </script>
+
+    <div id="signinButton">
+      <span class="g-signin"
+        data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+        data-clientid="651174589723-v01qq4svvqquqiqu86gunuge59v105kv.apps.googleusercontent.com"
+        data-redirecturi="postmessage"
+        data-accesstype="offline"
+        data-cookiepolicy="single_host_origin"
+        data-callback="g_callback"
+        data-size="small">
+      </span>
+    </div>
+    <div id="results"></div>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  
+  <script>
+      function gplusrender() {
+        gapi.signin.render('gpluscustomBtn', {
+          'callback': 'g_callback',
+          'clientid': '651174589723-v01qq4svvqquqiqu86gunuge59v105kv.apps.googleusercontent.com',
+          'cookiepolicy': 'single_host_origin',
+          'requestvisibleactions': 'http://schema.org/AddAction',
+          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
+          'redirecturi':'postmessage'
+        });
+      }
+  </script>
+  <style type="text/css">
+            #gpluscustomBtn {
+          display: inline-block;
+          background: #dd4b39;
+          color: white;
+          width: 80px;
+          border-radius: 5px;
+          white-space: nowrap;
+        }
+        #gpluscustomBtn:hover {
+          background: #e74b37;
+          cursor: hand;
+        }
+        span.gpluslabel {
+          font-weight: bold;
+        }
+        span.gplusicon {
+          background: url('https://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 5px 50% no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 25px;
+          height: 25px;
+          border-right: #bb3f30 1px solid;
+        }
+        span.gplusbuttonText {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 5px;
+          padding-right: 5px;
+          font-size: 10px;
+          font-weight: bold;
+          /* Use the Roboto font that is loaded in the <head> */
+          font-family: 'Roboto',arial,sans-serif;
+        }
+
+  </style>
+  <!-- In the callback, you would hide the gSignInWrapper element on a
+  successful sign in -->
+    <div id="gSignInWrapper">
+	    <span class="gpluslabel" >Sign in with:</span>
+	    <div id="gpluscustomBtn" class="customGPlusSignIn">
+	      <span class="gplusicon"></span>
+	      <span class="gplusbuttonText">Google</span>
+	    </div>
+    </div>
+</div>

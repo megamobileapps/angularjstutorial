@@ -1,0 +1,37 @@
+<!-- This is the partial view to show cart items for each grade-->
+ <div class="panel panel-default">
+  
+   <div class="panel-heading">
+     <a href="{{cartitem.gradeurl}}">{{cartitem.gradename}}
+     </a>
+     </div>
+      <div class="panel-body">
+         <p>{{cartitem.gradedescription}}
+         </p>
+         <div class="table">
+             <div class="row">
+                <div ng-repeat="subject in cartitem.subjects">
+                     <div class="col-sm-2">
+                         <div class="panel panel-default">
+
+                           <div class="panel-heading">
+                                 <a href="{{subject.url}}">{{subject.name}}</a>
+                            </div>
+                            <div class="panel-body">
+                                 <p>{{subject.description}}.
+                                 </p>
+                                 <img src="{{subject.img}}" width="100%">
+                           </div>
+                           <ul class="list-group">
+                              <li class="list-group-item">3 Month Rate: {{subject.threemonthrate}}</li>
+                              <li class="list-group-item">6 Month Rate: {{subject.sixmonthrate}}</li>
+                              <li class="list-group-item">1 Year Rate: {{subject.twelvemonthrate}}</li>
+                              <li class="list-group-item">Printed Copy Rate:{{subject.printrate}}</li>
+                           </ul>
+                        </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+   </div>
+</div>
