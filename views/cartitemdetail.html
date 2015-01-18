@@ -1,0 +1,34 @@
+<!-- This is the partial view to show cart items details for each grade-->
+Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjectName}}
+ <div class="table">
+     <div class="row">
+        <div ng-repeat="subject in currentSubjectData|filter:selectedItem">
+            
+             <div class="panel panel-default">
+
+                <div class="panel-heading">
+                     <a href="{{subject.url}}">{{subject.name}}</a>
+                </div>
+                
+                <div class="panel-body">
+                    <div class="col-md-2">
+                         
+                         <img src="{{subject.img}}" height="25%">
+                     </div>
+                      <div class="col-md-2">
+                           <p>{{subject.description}}.
+                             </p>
+                        </div>
+                     <div class="col-md-3">
+                        <ul class="list-group">
+                          <li class="btn btn-primary list-group-item">3 Month Rate: {{subject.threemonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary  list-group-item">6 Month Rate: {{subject.sixmonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary  list-group-item">1 Year Rate: {{subject.twelvemonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary  list-group-item">Printed Copy Rate:{{subject.printrate|currency:"Rupees "}} Add To Cart</li>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+         </div>
+     </div>
+ </div>
