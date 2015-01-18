@@ -1,16 +1,52 @@
 var controllers = {};
 controllers.SimpleController=function ($scope, SimpleFactory) {
-    $scope.customers=[];
-    $scope.cartItems=[];
+    
+    $scope.storeItems=[];
+    $scope.cart;
     init();
     function init() {
-        $scope.customers= SimpleFactory.getCustomers();  
-        $scope.cartItems= SimpleFactory.getCartItems();  
+        $scope.storeItems= SimpleFactory.getStoreData();  
+        $scope.cart=SimpleFactory.getCart();
     }
-    $scope.addCustomer = function() {
-        $scope.customers.push({name:$scope.newCustomer.name, city:$scope.newCustomer.city});
-    };
+   
 };
+
+controllers.ShowStoreItemDetailController = function($scope, $routeParams,SimpleFactory) {
+ 
+    $scope.worksheetDetails=[];
+    $scope.cart;
+    init();
+    function init() {
+        $scope.worksheetDetails= SimpleFactory.getStoreData();   
+        $scope.cart=SimpleFactory.getCart();
+        
+        $scope.currrentSubjectItem={};
+        
+        $scope.currrentSubjectItem.subjectName = $routeParams.subjectName;
+        $scope.currrentSubjectItem.gradeName = $routeParams.gradeName;
+        $scope.currentSubjectData=[];
+        
+        var sfound=false;
+        angular.forEach($scope.worksheetDetails,function(data){
+            if(data.gradename === $routeParams.gradeName 
+              && sfound === false ) {
+                //search for subject in it
+                //
+                console.log("Found grade "+$routeParams.gradeName);
+                angular.forEach(data.subjects, function(subData) {
+                    if(subData.name === $routeParams.subjectName ) {
+                        $scope.currentSubjectData.push(subData);
+                        console.log("Found subject "+$routeParams.subjectName);
+                        sfound = true;
+                    }
+                });
+
+            }
+        });
+    }
+ 
+};
+
 // add multiple controller funcitons in controllers
 // each one will be added as separate controllers and can be use
 // in different divs.

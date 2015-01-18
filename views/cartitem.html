@@ -2,15 +2,20 @@
  <div class="panel panel-default">
   
    <div class="panel-heading">
-     <a href="{{cartitem.gradeurl}}">{{cartitem.gradename}}
+     <a href="{{storeItem.gradeurl}}">{{storeItem.gradename}}
      </a>
+     Grades: 
+     
+     <select ng-model="selectedItem" 
+            ng-options="item as item.name for item in  storeItem.subjects">
+    </select>
      </div>
       <div class="panel-body">
-         <p>{{cartitem.gradedescription}}
+         <p>{{storeItem.gradedescription}}
          </p>
          <div class="table">
              <div class="row">
-                <div ng-repeat="subject in cartitem.subjects">
+                <div ng-repeat="subject in storeItem.subjects|filter:selectedItem">
                      <div class="col-sm-2">
                          <div class="panel panel-default">
 

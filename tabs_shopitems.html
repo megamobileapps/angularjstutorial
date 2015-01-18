@@ -23,15 +23,15 @@
         <div data-ng-view=""></div>
         <div class="row" ng-controller="SimpleController">
            <ul class="nav nav-tabs">
-              <li ng-class="{active:cartitem.isselected=='active'}" data-ng-repeat="cartitem in cartItems">
-                  <a ng-click="tabselect = cartitem.gradename" data-toggle="tab"   href="#{{cartitem.gradename}}">{{cartitem.gradename}}</a>
+              <li ng-class="{active:storeItem.isselected=='active'}" data-ng-repeat="storeItem in storeItems">
+                  <a ng-click="tabselect = storeItem.gradename" data-toggle="tab"   href="#{{cartitem.gradename}}">{{storeItem.gradename}}</a>
               </li>
             </ul>
             <div class="tab-content">
                
-                   <div ng-repeat="cartitem in cartItems" 
-                       ng-class="{'active':'tab-pane fade in active', '':'tab-pane fade'}[cartitem.isselected]" 
-                       id="{{cartitem.gradename}}"
+                   <div ng-repeat="storeItem in storeItems" 
+                       ng-class="{'active':'tab-pane fade in active', '':'tab-pane fade'}[storeItem.isselected]" 
+                       id="{{storeItem.gradename}}"
                        
                        >
                         <cart-item-tab-data>
@@ -49,8 +49,9 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="scripts/main.js"></script>
-<!--        <script src="scripts/configs.js"></script>-->
+        <script src="scripts/configs.js"></script>
         <script src="scripts/controllers.js"></script>
+        <script src="scripts/shoppingcart.js"></script>
         <script src="scripts/factory.js"></script>
         <script src="scripts/directive.js"></script>
         

@@ -20,5 +20,15 @@ utswApp.config(function($routeProvider) {
                 templateUrl:"views/signin.html",
                 controller:"SimpleController"
                })
+         .when("/cartitemdetail/:gradeName/:subjectName", 
+              {
+                templateUrl:"views/cartitemdetail.html",
+                controller:"ShowStoreItemDetailController"
+               })
+        .when("/cart", 
+              {
+                templateUrl:"views/showcart.html",
+                controller:"SimpleController"
+               })
         .otherwise({redirectTo:"/"});
 });

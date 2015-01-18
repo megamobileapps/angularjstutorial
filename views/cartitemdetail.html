@@ -21,13 +21,56 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
                         </div>
                      <div class="col-md-3">
                         <ul class="list-group">
-                          <li class="btn btn-primary list-group-item">3 Month Rate: {{subject.threemonthrate|currency:"Rupees "}} Add To Cart</li>
-                          <li class="btn btn-primary  list-group-item">6 Month Rate: {{subject.sixmonthrate|currency:"Rupees "}} Add To Cart</li>
-                          <li class="btn btn-primary  list-group-item">1 Year Rate: {{subject.twelvemonthrate|currency:"Rupees "}} Add To Cart</li>
-                          <li class="btn btn-primary  list-group-item">Printed Copy Rate:{{subject.printrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary list-group-item" 
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.threemonthrate, 1)"
+                              >3 Month Rate: {{subject.threemonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary  list-group-item"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.sixmonthrate, 1)"
+                              >6 Month Rate: {{subject.sixmonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li class="btn btn-primary  list-group-item"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.twelvemonthrate, 1)"
+                              >1 Year Rate: {{subject.twelvemonthrate|currency:"Rupees "}} Add To Cart</li>
+                          <li ng-if="subject.hasprintrate" class="btn btn-primary  list-group-item"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.printrate, 1)"
+                              >Printed Copy Rate:{{subject.printrate|currency:"Rupees "}} Add To Cart</li>
                         </ul>
                      </div>
-                </div>
+                     <div class="col-md-3">
+                         <div class="well">
+                              <a href="#/cart" title="go to shopping cart"
+                                 ng-disabled="cart.getTotalCount() < 1">
+                                 <i class="icon-shopping-cart" />
+                                 <b>{{cart.getTotalCount()}}</b> items,
+                                 <b>{{cart.getTotalPrice() | currency:"Rupees "}}</b>
+                              </a>
+                           
+                          </div>
+                          <p class="text-info">
+                                <button 
+                                    class="btn btn-block btn-danger" 
+                                    ng-click="cart.clearItems()" 
+                                    ng-disabled="cart.getTotalCount() < 1" >
+                                    <i class="icon-trash icon-white" /> clear cart
+                                </button>
+                                <button 
+                                    class="btn btn-block btn-link"
+                                    ng-click="cart.checkout('Paypal')"
+                                    ng-disabled="cart.getTotalCount() < 1" >
+                                    <img
+                                      src=https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif
+                                      alt="checkout PayPal"/>
+                                </button>
+                                <button 
+                                    class="btn btn-block btn-link" 
+                                    ng-click="cart.checkout('Facebook')" 
+                                    ng-disabled="cart.getTotalCount() < 1" >
+                                    <img
+                                      src=https://checkout.google.com/buttons/checkout.gif 
+                                      alt="checkoutFacebook"/>
+                                </button>
+                            </p>
+                    </div>
+                 </div>
             </div>
          </div>
      </div>
