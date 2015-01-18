@@ -10,11 +10,15 @@ function ShoppingCart(storename) {
     }
     // addItem(sku, name, price, quantity)
     
-    this.addItem=function addItem(sku, name, price, quantity){
+    this.addItem=function addItem(sku, name, price, quantity,storeItemType){
     
         var sFound =false;
         angular.forEach(this.items, function(data) {
-           if(sku == data.sku && sFound == false) {
+           if(sku == data.sku 
+              && (typeof storeItemType !== "undefined" 
+               && typeof data.storeItemType !== "undefined" 
+               && storeItemType == data.storeItemType)
+              && sFound == false) {
                if(-10000000 == quantity) {
                    // remove this entry
                    data.quantity = 0;
@@ -32,6 +36,9 @@ function ShoppingCart(storename) {
                 quantity:quantity
             };
 
+            if(typeof storeItemType !== "undefined") {
+                item.storeItemType = storeItemType;
+            }
             this.items.push(item);
         }
         
@@ -70,7 +77,7 @@ function ShoppingCart(storename) {
     }
     
     this.addFormFields=function addFormFields(form, data){
-        alert(typeof data);
+        //alert(typeof data);
         var keys = Object.keys(data);
         for(var i=0;i<keys.length;i++) {
             var paramName = keys[i];

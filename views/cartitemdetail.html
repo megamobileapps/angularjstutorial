@@ -22,16 +22,16 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
                      <div class="col-md-3">
                         <ul class="list-group">
                           <li class="btn btn-primary list-group-item" 
-                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.threemonthrate, 1)"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.threemonthrate, 1, 'online-3M')"
                               >3 Month Rate: {{subject.threemonthrate|currency:"Rupees "}} Add To Cart</li>
                           <li class="btn btn-primary  list-group-item"
-                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.sixmonthrate, 1)"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.sixmonthrate, 1, 'online-6M')"
                               >6 Month Rate: {{subject.sixmonthrate|currency:"Rupees "}} Add To Cart</li>
                           <li class="btn btn-primary  list-group-item"
-                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.twelvemonthrate, 1)"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.twelvemonthrate, 1, 'online-12M')"
                               >1 Year Rate: {{subject.twelvemonthrate|currency:"Rupees "}} Add To Cart</li>
                           <li ng-if="subject.hasprintrate" class="btn btn-primary  list-group-item"
-                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.printrate, 1)"
+                              ng-click="cart.addItem(subject.subjectid, subject.name, subject.printrate, 1, 'printed')"
                               >Printed Copy Rate:{{subject.printrate|currency:"Rupees "}} Add To Cart</li>
                         </ul>
                      </div>
