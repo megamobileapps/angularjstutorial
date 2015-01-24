@@ -1,0 +1,171 @@
+var uiApp = angular.module('uiApp',['ui.router']);
+uiApp.run(
+  ['$rootScope', '$state', '$stateParams',
+    function ($rootScope,   $state,   $stateParams) {
+
+    // It's very handy to add references to $state and $stateParams to the $rootScope
+    // so that you can access them from any scope within your applications.For example,
+    // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
+    // to active whenever 'contacts.list' or one of its decendents is active.
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+    }   
+  ]
+);
+
+uiApp.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/home");
+  //
+  // Now set up the states
+  $stateProvider
+    .state('home', {
+      url: "/home",
+      templateUrl: "templates/home.html",
+      controller: function($scope, SimpleFactory) {
+        
+      }
+    })
+
+    .state('gradelist', {
+      url: "/grades",
+      templateUrl: "grade.list.html",
+      controller: function($scope, SimpleFactory) {
+        $scope.gradelist = SimpleFactory.getGrades();
+	$scope.selectItem = function(selectedItem) {
+		_($scope.shoppingList).each(function(item) {
+		    item.selected = false;
+		    if (selectedItem === item) {
+		        selectedItem.selected = true;
+		    }
+		});
+    	};
+      }
+    })
+
+    .state('gradelist.subjects', {
+      url: "/:gradeid",
+      templateUrl: "subject.list.html",
+      controller: function($scope, $stateParams, SimpleFactory) {
+	console.log("gradeid:"+$stateParams.gradeid);
+	$scope.gradeid = $stateParams.gradeid;
+	$scope.subjectlist = SimpleFactory.getSubjects($scope.gradeid);
+        
+	console.log("subjct list is"+JSON.stringify($scope.subjectlist));
+	$scope.selectItem = function(selectedItem) {
+		_($scope.subjectlist).each(function(item) {
+		    item.selected = false;
+		    if (selectedItem === item) {
+		        selectedItem.selected = true;
+		    }
+		});
+    };
+    }
+});
+});
+
+
+uiApp.factory("SimpleFactory", function(){
+    var grades=[{name:'UKG'}, {name:'LKG'}];
+    var subjects=[
+        { 
+            gradeid:'UKG', 
+            subjects:[
+            {
+                id:'GUKGE',
+                detail:'english detail'
+            }
+        
+            ]
+        },
+        { 
+            gradeid:'LKG', 
+            subjects:[
+            {
+                id:'GLKGE',
+                detail:'english detail'
+            }
+        
+            ]
+        }
+    ];
+    
+    var topics = [
+        {
+            subjectid:'GUKGE',
+            topics:[
+                {id:'grammer2',
+                 detail:'grammer detail'
+                },
+                {id:'grammer2',
+                 detail:'grammer2 detail'
+                }
+            ]
+        }
+    ];
+    
+    var worksheets = [
+        {
+            topicid:'grammer2',
+            worksheets:[{
+                id:1,
+                detail:'worksheet detail',
+                content:'worksheet content'
+            },
+            {
+                id:2,
+                detail:'worksheet detail',
+                content:'worksheet content'
+            }]
+        }
+    ];
+    
+    var factory={};
+    factory.getGrades=function getGrades() {
+        return grades;
+    }
+    
+    factory.getSubjects=function getSubjects(gradeid) {
+        angular.forEach(subjects, function(subjectdata){
+	    console.log("argument gradeid: "+(typeof gradeid)+" iterator gradeid: "+(typeof subjectdata.gradeid));
+            if(subjectdata.gradeid === gradeid ) {
+                return subjectdata.subjects;
+            }
+        });
+        return {};
+    }
+    factory.getTopics=function getTopics(gradeid, subjectid) {
+        angular.forEach(topics, function(topicdata){
+            if(topicdata.subjectid === subjectid ) {
+                return topicdata.topics;
+            }
+        });
+        return {};
+    }
+    
+    factory.getWorksheets=function(gradeid, subjectid, topicid) {
+       angular.forEach(worksheets, function(worksheetdata){
+            if(worksheetdata.topicid === topicid ) {
+                return worksheetdata;
+            }
+        });
+        return {};
+    }
+    
+    factory.getWorksheetContent=function(gradeid, subjectid, topicid, worksheetid) {
+        
+        angular.forEach(worksheets, function(data){
+            if(data.topicid === topicid ) {
+                angular.forEach(data.worksheets, function (worksheetdata){
+                    if(worksheetdata.id === worksheetid ) {
+                        return worksheetdata;
+                    }
+                });
+            }
+        });
+        return {};
+    }
+    
+    return factory;
+});

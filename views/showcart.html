@@ -49,7 +49,7 @@
               <td class="tdRight">{{item.price * item.quantity | currency:"Rupees: "}}</td>
               <td class="tdCenter" title="remove from cart">
                 <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000,item.storeItemType)" >
-                  <i class="icon-remove" />RemoveItem
+                  <i class="icon-remove" />Remove Item
                 </a>
               </td>
             </tr>
@@ -75,7 +75,7 @@
     </button>
     <button 
         class="btn btn-block btn-link"
-        ng-click="cart.checkout('Paypal')"
+        ng-click="cart.checkout('Paypal',false)"
         ng-disabled="cart.getTotalCount() < 1" >
         <img
           src=https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif
@@ -83,7 +83,7 @@
     </button>
     <button 
         class="btn btn-block btn-link" 
-        ng-click="cart.checkout('Facebook')" 
+        ng-click="cart.checkout('Facebook',false)" 
         ng-disabled="cart.getTotalCount() < 1" >
         <img
           src=https://checkout.google.com/buttons/checkout.gif 

@@ -2,7 +2,7 @@
  <div class="panel panel-default">
   
    <div class="panel-heading">
-     <a href="{{storeItem.gradeurl}}">{{storeItem.gradename}}
+     <a ng-href="{{storeItem.gradeurl}}">{{storeItem.gradename}}
      </a>
      Grades: 
      
@@ -20,12 +20,12 @@
                          <div class="panel panel-default">
 
                            <div class="panel-heading">
-                                 <a href="{{subject.url}}">{{subject.name}}</a>
+                                 <a ng-href="{{subject.url}}">{{subject.name}}</a>
                             </div>
                             <div class="panel-body">
                                  <p>{{subject.description}}.
                                  </p>
-                                 <img src="{{subject.img}}" width="100%">
+                                 <img ng-src="{{subject.img}}" width="100%">
                            </div>
                            <ul class="list-group">
                               <li class="list-group-item">3 Month Rate: {{subject.threemonthrate}}</li>

@@ -1,6 +1,51 @@
+function cartItem(sku, name, price, quantity, storeItemType) {
+    return {
+        sku:sku,
+        name:name,
+        price:price,
+        quantity:quantity,
+        storeItemType:storeItemType
+    };
+}
 function ShoppingCart(storename) {
     this.items=[];
+    this.cartName = storename;
+     this.clearCart = false;
     this.checkoutParameters=[];
+    
+    // load items from local storage when initializing
+    this.loadItems = function () {
+        var items = localStorage != null ? localStorage[this.cartName + "_items"] : null;
+        if (items != null && JSON != null) {
+            try {
+                var items = JSON.parse(items);
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (item.sku != null && item.name != null && item.price != null 
+                        && item.quantity != null && item.storeItemType != null) {
+                        item = new cartItem(item.sku, item.name, item.price, item.quantity, item.storeItemType);
+                        this.items.push(item);
+                    }
+                }
+            }
+            catch (err) {
+            // ignore errors while loading...
+            }
+        }
+    }
+    this.loadItems();
+    // save items to local storage when unloading
+    var self = this;
+    $(window).unload(function () {
+        if (self.clearCart) {
+            self.clearItems();
+        }
+        self.saveItems();
+        self.clearCart = false;
+    });
+    
+    
+
     this.addCheckoutParameters = function(checkoutService, configParams) {
         this.checkoutParameters[checkoutService] = configParams;
     }
@@ -10,6 +55,11 @@ function ShoppingCart(storename) {
     }
     // addItem(sku, name, price, quantity)
     
+    this.saveItems = function () {
+        if (localStorage != null && JSON != null) {
+            localStorage[this.cartName + "_items"] = JSON.stringify(this.items);
+        }
+    }
     this.addItem=function addItem(sku, name, price, quantity,storeItemType){
     
         var sFound =false;
@@ -47,6 +97,7 @@ function ShoppingCart(storename) {
     
     this.clearItems = function clearItems() {
         this.items=[];
+        this.saveItems();
     }
     //getTotalCount(sku)
     this.getTotalCount=function getTotalCount(sku) {
@@ -84,10 +135,10 @@ function ShoppingCart(storename) {
             var paramValue = data[paramName];
             
             var field1 = $("<input></input>");
-            $(field1).attr("type","text"); 
+            $(field1).attr("type","hidden"); 
             $(field1).attr("name", paramName );
             $(field1).attr("id", paramName );
-            $(field1).attr("value", paramValue);
+            $(field1).val(paramValue);
             
             $(form).append(field1);
         }

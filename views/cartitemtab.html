@@ -20,13 +20,13 @@
                          <div class="panel panel-default">
 
                            <div class="panel-heading">
-                                 <a href="{{subject.url}}">{{subject.name}}</a>
+                                 <a ng-href="{{subject.url}}">{{subject.name}}</a>
                             </div>
                             <div class="panel-body">
                                  <p>{{subject.description}}.
                                  </p>
-                                 <a href="#cartitemdetail/{{storeItem.gradename}}/{{subject.name}}">
-                                     <img src="{{subject.img}}"  height="25%">
+                                 <a ng-href="#cartitemdetail/{{storeItem.gradename}}/{{subject.name}}">
+                                     <img ng-src="{{subject.img}}"  height="25%">
                                 </a>
                            </div>
                           

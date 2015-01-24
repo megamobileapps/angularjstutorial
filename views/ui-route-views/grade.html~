@@ -1,0 +1,6 @@
+<h1> I am in Grade.html</>
+<hr/>
+<div ng-repeat="item in items" class="container">
+<a  ui-sref=".subject" ng-href="#/grade/{{item}}">Show Subject List in {{item}}</a>
+</div>
+<div ui-view></div>

@@ -1,0 +1,12 @@
+<h2> worksheets </h2>
+<h3>Selected Grade/Subject/Topic is ----{{gradeid}}/{{subjectid}}/{{topicid}}</h3>
+<div class="row padded">
+    <div class="list-group col-xs-3">
+        <a class="list-group-item"
+            ng-repeat="item in worksheetlist"
+            ng-class="{active: item.selected}"
+            ng-href="#/grade/{{gradeid}}/{{subjectid}}/{{topicid}}/{{item.id}}"
+            ng-click="selectItem(item)">{{item.id}}</a>
+    </div>
+    <div ui-view class="col-xs-9"></div>
+</div>

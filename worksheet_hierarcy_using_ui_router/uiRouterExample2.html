@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="uiApp">
+<head>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
+<script src="ui-route-app.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<div class="container">
+    <h4>
+        A brief introduction to <strong class="text-danger">ui-router</strong>
+        <span class="text-muted">(v0.2.0)</span>
+    </h4>
+    <div>
+        <ul class="nav nav-pills">
+            <li><a ui-sref="home">Home</a></li>
+            <li><a ui-sref="gradelist">Shopping List</a></li>
+        </ul>
+    </div>
+    <div ui-view></div>
+  </div>
+  
+<script type="text/ng-template" id="templates/home.html">
+<div class="row">
+    <h3>What is ui-router?</h3>
+
+    <p>URL routing is a popular approach to matching the contents of a URL to specific functionality within a web
+        application. URL routes programmatically present specific content to users based on the URL that they are
+        visiting. It is a popular approach that has proven to be very effective.</p>
+
+    <P>Something that might not be obvious is that URL routing is also a finite state machine. When you configure
+        the routing for an app, you are laying out the various states the application can be in, and informing the
+        application what to display and do when a specific route is encountered.</P>
+
+    <p>AngularJS supplies URL routing by default. It is adequate, but also has some limitations.</p>
+</div>
+</script>
+    
+<script type="text/ng-template" id="templates/list.html">
+<div class="row padded">
+    <div class="list-group col-xs-3">
+        <a class="list-group-item"
+            ng-repeat="item in shoppingList"
+            ng-class="{active: item.selected}"
+            ng-href="#/list/{{item.name}}"
+            ng-click="selectItem(item)">{{item.name}}</a>
+    </div>
+    <div ui-view class="col-xs-9"></div>
+</div>
+</script>
+    
+<script type="text/ng-template" id="templates/list.item.html">
+<h3>{{item}}</h3>
+<img ng-src="//robohash.org/{{item}}.png" />
+</script>
+  
+</body>
+</html>

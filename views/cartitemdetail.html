@@ -1,5 +1,5 @@
 <!-- This is the partial view to show cart items details for each grade-->
-Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjectName}}
+
  <div class="table">
      <div class="row">
         <div ng-repeat="subject in currentSubjectData|filter:selectedItem">
@@ -7,13 +7,13 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
              <div class="panel panel-default">
 
                 <div class="panel-heading">
-                     <a href="{{subject.url}}">{{subject.name}}</a>
+                     <a ng-href="{{subject.url}}">{{subject.name}}</a>
                 </div>
                 
                 <div class="panel-body">
                     <div class="col-md-2">
                          
-                         <img src="{{subject.img}}" height="25%">
+                         <img ng-src="{{subject.img}}" height="25%">
                      </div>
                       <div class="col-md-2">
                            <p>{{subject.description}}.
@@ -37,7 +37,7 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
                      </div>
                      <div class="col-md-3">
                          <div class="well">
-                              <a href="#/cart" title="go to shopping cart"
+                              <a ng-href="#/cart" title="go to shopping cart"
                                  ng-disabled="cart.getTotalCount() < 1">
                                  <i class="icon-shopping-cart" />
                                  <b>{{cart.getTotalCount()}}</b> items,
@@ -54,7 +54,7 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
                                 </button>
                                 <button 
                                     class="btn btn-block btn-link"
-                                    ng-click="cart.checkout('Paypal')"
+                                    ng-click="cart.checkout('Paypal',false)"
                                     ng-disabled="cart.getTotalCount() < 1" >
                                     <img
                                       src=https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif
@@ -62,7 +62,7 @@ Grade : {{currrentSubjectItem.gradeName}} Subject : {{currrentSubjectItem.subjec
                                 </button>
                                 <button 
                                     class="btn btn-block btn-link" 
-                                    ng-click="cart.checkout('Facebook')" 
+                                    ng-click="cart.checkout('Facebook',false)" 
                                     ng-disabled="cart.getTotalCount() < 1" >
                                     <img
                                       src=https://checkout.google.com/buttons/checkout.gif 
