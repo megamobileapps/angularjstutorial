@@ -1,25 +1,17 @@
 <!-- This is the partial view to show cart items for each grade-->
  <div class="panel panel-default">
-  
    <div class="panel-heading">
-     <a href="{{storeItem.gradeurl}}">{{storeItem.gradename}}
-     </a>
-     Subjects: 
-     
-     <select ng-model="selectedItem" 
+       <a href="{{storeItem.gradeurl}}">{{storeItem.gradename}}</a>
+       Subjects: <select ng-model="selectedItem" 
             ng-options="item as item.name for item in  storeItem.subjects">
-    </select>
-     </div>
-      <div class="panel-body">
-         <p>{{storeItem.gradedescription}}
-         </p>
-         <div class="table">
-             <div class="row">
-                <div ng-repeat="subject in storeItem.subjects|filter:selectedItem">
-                     <div class="col-sm-2">
-                         <div class="panel panel-default">
-
-                           <div class="panel-heading">
+            </select>
+   </div>
+   <div class="panel-body">
+       <p>{{storeItem.gradedescription}}</p>
+       <div ng-repeat="subject in storeItem.subjects|filter:selectedItem" class="container slider">
+		     <div class="slide">
+                   <div class="panel panel-default">
+                            <div class="panel-heading">
                                  <a ng-href="{{subject.url}}">{{subject.name}}</a>
                             </div>
                             <div class="panel-body">
@@ -29,10 +21,8 @@
                                      <img ng-src="{{subject.img}}"  height="25%">
                                 </a>
                            </div>
-                          
-                     </div>
-                 </div>
-             </div>
-         </div>
-   </div>
+                  </div>
+            </div>
+       </div>
+	</div>
 </div>

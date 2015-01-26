@@ -1,9 +1,9 @@
-<html lang="en" data-ng-app="utswApp">
+<html lang="en" data-ng-app="sliderApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test custom directives</title>
+        <title>Test Slider for subjects </title>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -20,27 +20,14 @@
     </head>
     <body>
         <h1>UpToSchoolWorksheet's Store</h1>
-        <div data-ng-view=""></div>
-        <div class="row" ng-controller="SimpleController">
-           <ul class="nav nav-tabs">
-              <li ng-class="{active:storeItem.isselected=='active'}" data-ng-repeat="storeItem in storeItems">
-                  <a ng-click="tabselect = storeItem.gradename" data-toggle="tab"   href="#{{storeItem.gradename}}">{{storeItem.gradename}}</a>
-              </li>
-            </ul>
-            <div class="tab-content">
-               
-                   <div ng-repeat="storeItem in storeItems" 
-                       ng-class="{'active':'tab-pane fade in active', '':'tab-pane fade'}[storeItem.isselected]" 
-                       id="{{storeItem.gradename}}"
-                       
-                       >
-                        <cart-item-tab-data>
-
-                        </cart-item-tab-data>
-                    </div>
-                </div>
-            
-        </div>
+		<script> 
+			function testme_G() {
+			alert("hello");
+			}
+		</script>
+		<div ng-controller="MySliderController">
+        	<div ng-include="'header.html'" onload="enableMultiSlide()"></div>
+		</div>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js"></script>
@@ -49,18 +36,33 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="scripts/main.js"></script>
-        <script src="scripts/configs.js"></script>
-        <script src="scripts/controllers.js"></script>
-        <script src="scripts/shoppingcart.js"></script>
-        <script src="scripts/factory.js"></script>
-        <script src="scripts/directive.js"></script>
-        
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://apis.google.com/js/client:platform.js?onload=gplusrender" async defer></script>
-
-        <script>
-           
-        </script>
+		<script>
+			var sliderApp = angular.module("sliderApp",[]);
+			sliderApp.controller("MySliderController", function($scope) {
+                $scope.enableMultiSlide = function enableMultiSlide() {
+                    alert("coming to ready function");
+                    $('.carousel .item').each(function(){
+                      var next = $(this).next();
+                      if (!next.length) {
+                        next = $(this).siblings(':first');
+                      }
+                      next.children(':first-child').clone().appendTo($(this));
+                      
+                      for (var i=0;i<3;i++) {
+                        next=next.next();
+                        if (!next.length) {
+                        	next = $(this).siblings(':first');
+                      	}
+                        
+                        next.children(':first-child').clone().appendTo($(this));
+                      }
+                      console.log("length of this is :"+$(this).length);
+                    });
+                }
+				$scope.testme = function() {
+					alert("Tetme");
+				}
+			});
+		</script>
     </body>
 </html>
